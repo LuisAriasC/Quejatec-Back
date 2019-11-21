@@ -11,6 +11,7 @@ placeEventGroupController.create = (req, res) => {
     var placeEventGroup = new PlaceEventGroup();
     var params = req.body;
     placeEventGroup.name = params.name;
+    placeEventGroup.placeEvents = params.placeEvents;
 
     if (placeEventGroup.name != null) {
 

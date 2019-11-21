@@ -20,7 +20,6 @@ var IssueSchema = Schema({
     },
     manager:{
         ref: 'Admin',
-        required: true,
         type: Schema.ObjectId
     },
     status: {

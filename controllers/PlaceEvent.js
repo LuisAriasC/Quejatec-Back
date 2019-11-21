@@ -12,12 +12,11 @@ placeEventController.create = (req, res) => {
     var params = req.body;
     placeEvent.name = params.name;
     placeEvent.type = params.type;
-    placeEvent.placeEventGroup = params.placeEventGroup
     if(params.dueDate) {
         placeEvent.dueDate = new Date(params.dueDate);
     }
     
-    if (placeEvent.name != null && placeEvent.type != null && placeEvent.placeEventGroup) {
+    if (placeEvent.name != null && placeEvent.type != null) {
 
         placeEvent.save((err, placeEventStored) => {
             if (err) {

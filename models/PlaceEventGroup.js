@@ -8,6 +8,14 @@ var PlaceEventGroupSchema = Schema({
         required: true,
         type: String
     },
+    placeEvents: {
+        required: true,
+        type: [{
+            ref: 'PlaceEvent',
+            required: true,
+            type: Schema.ObjectId
+        }]
+    },
     registerDate: {
         default: Date.now(),
         required: true,
