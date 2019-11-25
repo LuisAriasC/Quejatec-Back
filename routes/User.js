@@ -5,7 +5,7 @@ var userController = require('../controllers/User');
 
 var router = express.Router();
 
-router.get('/:page/:limit', userController.getAll);
+router.get('/', userController.getAll);
 router.post('/', userController.create);
 router.get('/:id', userController.get);
 router.patch('/:id', userController.put);

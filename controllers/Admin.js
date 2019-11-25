@@ -27,7 +27,7 @@ adminController.create = (req, res) => {
                 if (!adminStored) {
                     res.status(404).send({message: 'NO SE HA REGISTRADO AL ADMINISTRADOR'});
                 } else {
-                    res.status(200).send({admin: adminStored._id});
+                    res.status(200).send({admin: adminStored});
                 }
             }
         });
@@ -60,20 +60,24 @@ adminController.get = (req, res) => {
 /*
 */
 adminController.getAll = (req, res) => {
-
-    var page = parseInt(req.params.page, 10);
-    var itemsPerPage = parseInt(req.params.limit, 10);
-  
-    Admin.find({status: 'active', type: 'admin'}).sort('name').limit(itemsPerPage).skip(page * itemsPerPage).exec(function(err, admins){
+  console.log('getAll');
+    var page = req.query.page ? parseInt(req.query.page, 10) - 1 : 0;
+    var itemsPerPage = req.query.limit ? parseInt(req.query.limit, 10) : 5 ;
+    const filterField = req.query.field;
+    var query = {};
+    if (filterField) {
+      query[filterField] = req.query.filter;
+    }
+    Admin.find(query).sort('name').limit(itemsPerPage).skip(page * itemsPerPage).exec(function(err, admins){
       if (err) {
         res.status(500).send({message: err});
       } else {
         if (admins) {
-          Admin.count({status: 'active', type: 'admin'}, function(err, count) {
+          Admin.countDocuments(query, function(err, count) {
              if (err) {
                res.status(500).send({message: 'ERROR EN LA PETICION'});
              } else {
-               return res.status(500).send({
+               return res.status(200).send({
                  total: count,
                  admins
                });
@@ -145,7 +149,7 @@ adminController.delete = (req, res) => {
                         if (!admin) {
                             res.status(404).send({message: 'EL ADMINISTRADOR NO EXISTE'});
                         } else {
-                            res.status(200).send({message: 'ADMINISTRADOR ELIMINADO CORRECTAMENTE'});
+                            res.status(200).send({success: true, message: 'ADMINISTRADOR ELIMINADO CORRECTAMENTE'});
                         }
                     }
                 });

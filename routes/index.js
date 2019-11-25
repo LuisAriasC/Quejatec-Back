@@ -12,12 +12,12 @@ const clientIssueRouter = require('./ClientIssue');
 const clientScoreRouter = require('./ClientNetPromoterScore');
 
 // Admin Routes
-router.use('/admin', adminRouter);
-router.use('/user', userRouter);
-router.use('/placeEvent', placeEventRouter);
-router.use('/placeEventGroup', placeEventGroupRouter);
-router.use('/issue', issueRouter);
-router.use('/netPromoterScore', netPromoterScoreRouter);
+router.use('/admin/admin', adminRouter);
+router.use('/admin/user', userRouter);
+router.use('/admin/place-event', placeEventRouter);
+router.use('/admin/place-event-group', placeEventGroupRouter);
+router.use('/admin/issue', issueRouter);
+router.use('/admin/net-promoter-score', netPromoterScoreRouter);
 
 // Client routes
 router.use('/client/placeEvent', clientPlaceEventRouter);

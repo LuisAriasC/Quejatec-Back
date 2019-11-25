@@ -61,19 +61,23 @@ userController.get = (req, res) => {
 */
 userController.getAll = (req, res) => {
 
-    var page = parseInt(req.params.page, 10);
-    var itemsPerPage = parseInt(req.params.limit, 10);
-  
-    User.find({status: 'active'}).sort('name').limit(itemsPerPage).skip(page * itemsPerPage).exec(function(err, users){
+    var page = req.query.page ? parseInt(req.query.page, 10) - 1 : 0;
+    var itemsPerPage = req.query.limit ? parseInt(req.query.limit, 10) : 5 ;
+    const filterField = req.query.field;
+    var query = {};
+    if (filterField) {
+      query[filterField] = req.query.filter;
+    }
+    User.find(query).sort('name').limit(itemsPerPage).skip(page * itemsPerPage).exec(function(err, users){
       if (err) {
         res.status(500).send({message: err});
       } else {
         if (users) {
-          User.count({status: 'active'}, function(err, count) {
+          User.count(query, function(err, count) {
              if (err) {
                res.status(500).send({message: 'ERROR EN LA PETICION'});
              } else {
-               return res.status(500).send({
+               return res.status(200).send({
                  total: count,
                  users
                });

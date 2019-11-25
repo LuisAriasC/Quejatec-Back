@@ -22,7 +22,7 @@ placeEventGroupController.create = (req, res) => {
                 if (!placeEventGroupStored) {
                     res.status(404).send({message: 'NO SE HA REGISTRADO AL GRUPO DE LUGARES/EVENTOS'});
                 } else {
-                    res.status(200).send({placeEventGroup: placeEventGroupStored._id});
+                    res.status(200).send({item: placeEventGroupStored});
                 }
             }
         });
@@ -45,7 +45,7 @@ placeEventGroupController.get = (req, res) => {
             if (!placeEventGroup) {
             res.status(404).send({message: 'EL LUGAR/EVENTO NO EXISTE ...'});
             } else {
-                res.status(200).send({placeEventGroup});
+                res.status(200).send({item: placeEventGroup});
             }
         }
     });
@@ -59,19 +59,23 @@ placeEventGroupController.getAll = (req, res) => {
 
     var page = parseInt(req.params.page, 10);
     var itemsPerPage = parseInt(req.params.limit, 10);
-  
-    PlaceEventGroup.find({status: 'active'}).sort('name').limit(itemsPerPage).skip(page * itemsPerPage).exec(function(err, placeEventGroups){
+    const filterField = req.query.field;
+    var query = {};
+    if (filterField) {
+      query[filterField] = req.query.filter;
+    }
+    PlaceEventGroup.find(query).sort('name').limit(itemsPerPage).skip(page * itemsPerPage).exec(function(err, placeEventGroups){
       if (err) {
         res.status(500).send({message: err});
       } else {
         if (placeEventGroups) {
-            PlaceEventGroup.count({status: 'active'}, function(err, count) {
+            PlaceEventGroup.count(query, function(err, count) {
              if (err) {
                res.status(500).send({message: 'ERROR EN LA PETICION'});
              } else {
-               return res.status(500).send({
-                 total: count,
-                 placeEventGroups
+               return res.status(200).send({
+                 totalDocs: count,
+                 docs: placeEventGroups
                });
              }
           });
@@ -105,7 +109,7 @@ placeEventGroupController.put = (req, res) => {
                         if (!placeEventGroup) {
                             res.status(404).send({message: 'EL EMPLEADO NO EXISTE'});
                         } else {
-                            res.status(200).send({placeEventGroup});
+                            res.status(200).send({item: placeEventGroup});
                         }
                     }
                 });
