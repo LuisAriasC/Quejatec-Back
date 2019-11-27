@@ -8,10 +8,15 @@ var clientNetPromoterScoreController = {};
 */
 clientNetPromoterScoreController.create = (req, res) => {
 
+    console.log('in');
+    console.log(req.body);
+
     var nps = new NetPromoterScore();
     var params = req.body;
     nps.score = params.score;
     nps.placeEvent = params.placeEvent;
+
+    console.log(nps);
     
     if (nps.score != null && nps.placeEvent != null) {
         nps.save((err, npsStored) => {
@@ -19,7 +24,7 @@ clientNetPromoterScoreController.create = (req, res) => {
                 res.status(500).send({message: 'ERROR AL REGISTRAR SCORE'});
             }  else {
                 if (!npsStored) {
-                    res.status(404).send({message: 'NO SE HA REGISTRADO EL SCORE'});
+                    res.status(400).send({message: 'NO SE HA REGISTRADO EL SCORE'});
                 } else {
                     res.status(200).send({message: 'SCORE GUARDADO SATISFACTORIAMENTE'});
                 }
@@ -27,7 +32,7 @@ clientNetPromoterScoreController.create = (req, res) => {
         });
     }
     else {
-        res.status(200).send({message: 'INTRODUCE TODOS LOS CAMPOS'});
+        res.status(300).send({message: 'INTRODUCE TODOS LOS CAMPOS'});
     }
 }
 
