@@ -5,6 +5,7 @@ var adminController = require('../controllers/Admin');
 
 var router = express.Router();
 
+router.get('/all', adminController.getFull);
 router.get('/', adminController.getAll);
 router.post('/', adminController.create);
 router.get('/:id', adminController.get);

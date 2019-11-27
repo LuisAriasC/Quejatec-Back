@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const homeRouter = require('./Home');
 const adminRouter = require('./Admin');
 const userRouter = require('./User');
 const placeEventRouter = require('./PlaceEvent');
@@ -12,6 +13,7 @@ const clientIssueRouter = require('./ClientIssue');
 const clientScoreRouter = require('./ClientNetPromoterScore');
 
 // Admin Routes
+router.use('/admin/home', homeRouter);
 router.use('/admin/admin', adminRouter);
 router.use('/admin/user', userRouter);
 router.use('/admin/place-event', placeEventRouter);

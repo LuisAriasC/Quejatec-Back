@@ -86,6 +86,27 @@ placeEventGroupController.getAll = (req, res) => {
     });
 }
 
+placeEventGroupController.getFull =  (req, res) => {
+
+  var page = parseInt(req.params.page, 10);
+  var itemsPerPage = parseInt(req.params.limit, 10);
+  const filterField = req.query.field;
+  var query = {};
+  if (filterField) {
+    query[filterField] = req.query.filter;
+  }
+  PlaceEventGroup.find(query).sort('name').exec(function(err, placeEventGroups){
+    if (err) {
+      res.status(500).send({message: err});
+    } else {
+      if (placeEventGroups) {
+        return res.status(200).send({items: placeEventGroups});
+      } else {
+        res.status(404).send({message: 'NO HAY GRUPOS'});
+      }
+    }
+  });
+}
 
 //UPDATE PLACE/EVENT GROUP
 /*

@@ -1,6 +1,8 @@
 'use strict'
 var NetPromoterScore = require('../models/NetPromoterScore');
 
+var dummyData = require('../dummy-data/score-dummy');
+
 var netPromoterScoreController = {};
 
 //CREATE A NET PROMOTER SCORE
@@ -78,5 +80,11 @@ netPromoterScoreController.getAll = (req, res) => {
       }
     });
 }
+
+netPromoterScoreController.getStats = (req, res) => {
+  console.log()
+  const groupId = req.params.id;
+  return res.status(200).send({items: dummyData});
+};
 
 module.exports = netPromoterScoreController

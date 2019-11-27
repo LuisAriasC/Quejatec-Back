@@ -1,12 +1,13 @@
 'use strict'
 var PlaceEvent = require('../models/PlaceEvent');
+var PlaceEventGroup = require('../models/PlaceEventGroup');
 
 var placeEventController = {};
 
 //CREATE A NEW PLACE EVENT
 /*
 */
-placeEventController.create = (req, res) => {
+placeEventController.create = async (req, res) => {
 
     var placeEvent = new PlaceEvent();
     var params = req.body;
@@ -25,10 +26,16 @@ placeEventController.create = (req, res) => {
                 if (!placeEventStored) {
                     res.status(404).send({message: 'NO SE HA REGISTRADO AL LUGAR/EVENTO'});
                 } else {
-                    res.status(200).send({placeEvent: placeEventStored._id});
+                    res.status(200).send({item: placeEventStored});
                 }
             }
         });
+        const placeEventGroupId = req.params.id;
+        try {
+          await PlaceEventGroup.update({_id: placeEventGroupId}, {$push: {placeEvents: placeEvent._id}});
+        } catch (error) {
+          return res.status(500).send({message: error.message ? error.message : 'ERROR EN LA PETICION'});
+        }
     }
     else {
         res.status(200).send({message: 'Introduce todos los campos'});
@@ -47,7 +54,7 @@ placeEventController.get = (req, res) => {
             if (!placeEvent) {
             res.status(404).send({message: 'EL LUGAR/EVENTO NO EXISTE'});
             } else {
-                res.status(200).send({placeEvent});
+                res.status(200).send({item: placeEvent});
             }
         }
     });
@@ -56,24 +63,38 @@ placeEventController.get = (req, res) => {
 //READ PLACE/EVENTS
 /*
 */
-placeEventController.getAll = (req, res) => {
+placeEventController.getAll = async (req, res) => {
 
-    var placeEventType = req.params.type;
-    var page = parseInt(req.params.page, 10);
-    var itemsPerPage = parseInt(req.params.limit, 10);
-  
-    PlaceEvent.find({$or: [{status: 'active', type: placeEventType}, {status: 'draft', type: placeEventType}]}).sort('name').limit(itemsPerPage).skip(page * itemsPerPage).exec(function(err, placeEvents){
+    // var placeEventType = req.params.type;
+    var page = req.query.page ? parseInt(req.query.page, 10) - 1 : 0;
+    var itemsPerPage = req.query.limit ? parseInt(req.query.limit, 10) : 5 ;
+    const filterField = req.query.field;
+    const placeEventGroupId = req.params.id;
+    let placeEventGroup;
+    try {
+      placeEventGroup = await PlaceEventGroup.findById(placeEventGroupId);
+    } catch (error) {
+      return res.status(500).send({message: error.message ? error.message : 'ERROR EN LA PETICION'});
+    }
+
+    var query = {_id: {$in: placeEventGroup.placeEvents}};
+    // console.log('query',query);
+    if (filterField) {
+      query[filterField] = req.query.filter;
+    }
+
+    PlaceEvent.find(query).sort('name').limit(itemsPerPage).skip(page * itemsPerPage).exec(function(err, placeEvents){
       if (err) {
         res.status(500).send({message: err});
       } else {
         if (placeEvents) {
-            PlaceEvent.count({$or: [{status: 'active', type: placeEventType}, {status: 'draft', type: placeEventType}]}, function(err, count) {
+            PlaceEvent.count(query, function(err, count) {
              if (err) {
                res.status(500).send({message: 'ERROR EN LA PETICION'});
              } else {
-               return res.status(500).send({
-                 total: count,
-                 placeEvents
+               return res.status(200).send({
+                 totalDocs: count,
+                 docs: placeEvents
                });
              }
           });
@@ -106,7 +127,7 @@ placeEventController.put = (req, res) => {
                         if (!placeEvent) {
                             res.status(404).send({message: 'EL EMPLEADO NO EXISTE'});
                         } else {
-                            res.status(200).send({placeEvent});
+                            res.status(200).send({item: placeEvent});
                         }
                     }
                 });
@@ -138,7 +159,7 @@ placeEventController.delete = (req, res) => {
                         if (!placeEvent) {
                             res.status(404).send({message: 'EL LUGAR/EVENTO NO EXISTE'});
                         } else {
-                            res.status(200).send({message: 'LUGAR/EVENTO ELIMINADO CORRECTAMENTE'});
+                            res.status(200).send({success: true, message: 'LUGAR/EVENTO ELIMINADO CORRECTAMENTE'});
                         }
                     }
                 });

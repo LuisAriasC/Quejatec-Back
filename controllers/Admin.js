@@ -90,6 +90,24 @@ adminController.getAll = (req, res) => {
     });
 }
 
+adminController.getFull = (req, res) => {
+  console.log('getFull');
+    var query = {status: 'active'};
+    Admin.find(query, '_id name').exec(function(err, admins){
+      if (err) {
+        res.status(500).send({message: err});
+      } else {
+        if (admins) {
+          return res.status(200).send({
+            items: admins
+          });
+        } else {
+          res.status(404).send({message: 'NO HAY ADMINISTRADORES'});
+        }
+      }
+    });
+}
+
 
 
 //UPDATE USER

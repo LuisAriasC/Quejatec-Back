@@ -23,7 +23,7 @@ issueController.create = (req, res) => {
                 if (!issueStored) {
                     res.status(404).send({message: 'NO SE HA REGISTRADO EL ISSUE'});
                 } else {
-                    res.status(200).send({issue: issueStored._id});
+                    res.status(200).send({item: issueStored});
                 }
             }
         });
@@ -45,7 +45,7 @@ issueController.get = (req, res) => {
             if (!issue) {
             res.status(404).send({message: 'EL ISSUE NO EXISTE'});
             } else {
-                res.status(200).send({issue});
+                res.status(200).send({item: issue});
             }
         }
     });
@@ -59,17 +59,21 @@ issueController.getAll = (req, res) => {
     var issueStatus = req.params.status;
     var page = parseInt(req.params.page, 10);
     var itemsPerPage = parseInt(req.params.limit, 10);
-  
-    Issue.find({status: issueStatus}).sort('name').limit(itemsPerPage).skip(page * itemsPerPage).exec(function(err, issues){
+    const filterField = req.query.field;
+    var query = {};
+    if (filterField) {
+      query[filterField] = req.query.filter;
+    }
+    Issue.find(query).sort('name').limit(itemsPerPage).skip(page * itemsPerPage).exec(function(err, issues){
       if (err) {
         res.status(500).send({message: err});
       } else {
         if (issues) {
-            Issue.count( {status: issueStatus} , function(err, count) {
+            Issue.count( query , function(err, count) {
              if (err) {
                res.status(500).send({message: 'ERROR EN LA PETICION'});
              } else {
-               return res.status(500).send({
+               return res.status(200).send({
                  total: count,
                  issues
                });
@@ -89,7 +93,12 @@ issueController.put = (req, res) => {
 
     var issueId = req.params.id;
     var update = {};
+    update.manager = req.body.manager;
     update.status = req.body.status;
+
+    if (update.manager) {
+      update.status  = 'assigned';
+    }
     
     Issue.findByIdAndUpdate(issueId, update, (err, issueUpdated) => {
         if (err) {
@@ -105,7 +114,7 @@ issueController.put = (req, res) => {
                         if (!issue) {
                             res.status(404).send({message: 'ISSUE NO EXISTE'});
                         } else {
-                            res.status(200).send({issue});
+                            res.status(200).send({item: issue});
                         }
                     }
                 });
@@ -137,7 +146,7 @@ issueController.delete = (req, res) => {
                         if (!issue) {
                             res.status(404).send({message: 'EL ISSUE NO EXISTE'});
                         } else {
-                            res.status(200).send({message: 'ISSUE ELIMINADO CORRECTAMENTE'});
+                            res.status(200).send({success:true, message: 'ISSUE ELIMINADO CORRECTAMENTE'});
                         }
                     }
                 });

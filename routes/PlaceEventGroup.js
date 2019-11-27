@@ -6,6 +6,7 @@ var placeEventGroupController = require('../controllers/PlaceEventGroup');
 var router = express.Router();
 
 router.get('/', placeEventGroupController.getAll);
+router.get('/all', placeEventGroupController.getFull);
 router.post('/', placeEventGroupController.create);
 router.get('/:id', placeEventGroupController.get);
 router.patch('/:id', placeEventGroupController.put);
