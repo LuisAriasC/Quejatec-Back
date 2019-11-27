@@ -8,6 +8,8 @@ const placeEventRouter = require('./PlaceEvent');
 const placeEventGroupRouter = require('./PlaceEventGroup');
 const issueRouter = require('./Issue');
 const netPromoterScoreRouter = require('./NetPromoterScore');
+const iotRouter = require('./Iot');
+const notificationRouter = require('./Notification');
 const clientPlaceEventRouter = require('./ClientPlaceEvent');
 const clientIssueRouter = require('./ClientIssue');
 const clientScoreRouter = require('./ClientNetPromoterScore');
@@ -20,6 +22,8 @@ router.use('/admin/place-event', placeEventRouter);
 router.use('/admin/place-event-group', placeEventGroupRouter);
 router.use('/admin/issue', issueRouter);
 router.use('/admin/net-promoter-score', netPromoterScoreRouter);
+router.use('/admin/iot', iotRouter);
+router.use('/admin/notification', notificationRouter);
 
 // Client routes
 router.use('/client/placeEvent', clientPlaceEventRouter);

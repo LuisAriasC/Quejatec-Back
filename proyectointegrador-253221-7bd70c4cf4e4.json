@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "proyectointegrador-253221",
+  "private_key_id": "7bd70c4cf4e442aa6a6388395cfc271cb2ee978e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC2cld/kld5fpxU\nYaA7QGrbPb2QQ9qf6biviQypGQYZSiyQ+ewOXvLvw4AF3TACYYy6OHNpxfcm00xe\nec4vgtBJiSQUnlx9++ZxUbzx8owKLF7EGCv+FgAbxQMOawE42SZ6quOXI1GUARKq\n6t8YBuj+BB7IqRhVR5aBj49wrmFytoax3HbvKPHMo4kSCs/U4DgyZv6CCgXt4S4S\ne4CKRsyiydOYJbtVF4JXgzq2lQd/xrjRUBPsRB+ZyerDHUJt5xoDCq+ccBaPYCzA\nyJ7seeF15p/17/pgBCF7AzuewBcWTxn8jy26J7jpzm3Sg7I94Tow0oUPJngBGawc\norcjRq3hAgMBAAECggEAHFVU1KFOZ7Yg4v3SRhaylt+stmBt7ahR9SNhzZ+Zkd3c\ns/BhbLiUHmYMVgd2nY1hWcjLK6GsczbHRQ4XgMteO2f1LCU3v0eaZFN0S1gGesyk\niZbTZinWfyQxCFEtJxNEutzFFsNLt6IUWxS57ApOrqbHJ78S4f40bQ8gEI4UNh3H\nWGCWoRoSFLYoJc02IZrCtItyvVJoPQcJ3NSMHmmeyav21JZN5t/N7nnC7mAdGlK7\nqkwxSgdSMatJ9DyOSABcmpAGQO51uuV/kLHCZw8Z4cvXyyaxhuihwAX7R12XCN61\nULtK04QGqfhPN7YxO1Uip84nzqWoapcC6EJRTXfrTQKBgQD5NwH6S77EUD3imkrk\nP2m3CoeY656RryjAOENanUNbW2q5Y48h6pTmpLNXCanY1DD84ur1V/idd3oUfWqU\n25OKWfOsoBhpFig4PpKUkCnEjzhPXBPpbjm5CAGoCA2Ek+QC+lsDIFJpKDfGbzIs\nk74f4uEBRYHh0XAOeQW7rNr5AwKBgQC7afgRF2c/N0l/xD1aJRCTiPW1eKSlhHRk\niETASp+FWh3muEuDaTWpTJ1DPtbSR794x7AcfGrtZ2dZDiOAeY0ayuv6s/vz5tJb\nxAUuq2PZ53ezc/EPdCWYvDETI8a6BZTdUkrzEVKYPTvFXI8IAvf7c5PFP9nRQ72i\nL13b5ps+SwKBgDkuOuDwEjQ+6QQePMLEHgBmhRg8L6TjmKkJ/8JBxRuoDQO+aS/x\n//ovngqBaBwdC6RqeFiUt7GBoVwkLpk7DE45N2TLUu6Bq/bDvKQjs8GqztO+n772\nkH347VBdkKRzvmREhy9fcik4lhuMlemOeJgeWVwOU6+5e0mG0R7vmUp7AoGBAKxv\nXNIE8XclnFeVLEnjrnPAYSqeHQc5booNIwy13D4q4zYkPT5kr/3cQxnbGHaTkyVC\nvdQH2a4jJOC4dIvBysVrDWI29cu8hbHvEkGVaiLUqLsRIyvv1qPIC3MryK3hcs2L\n6O/p8U+nj3YQqn1ZlebiuYSUMgorxLAT2sz4ScAvAoGBAPWul4HoQ79/pxG2rC4U\naDFv2CB5DEXWCn0wN1Ug/AMzxBvPVs5LQezcg5/CPSTcuTd4SA75q+VA6y66YAwc\nnxqaWr/0TDu/rdgXnJOve/LNFpMJ6tDMY/AIVafNCzKEfez1sZW3CGjYaSmxhGsG\n6plFqTLqrRwReEFZu9aDAAPu\n-----END PRIVATE KEY-----\n",
+  "client_email": "bigquery-quejatec@proyectointegrador-253221.iam.gserviceaccount.com",
+  "client_id": "117897608187096830433",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bigquery-quejatec%40proyectointegrador-253221.iam.gserviceaccount.com"
+}
