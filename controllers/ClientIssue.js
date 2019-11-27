@@ -7,10 +7,11 @@ var clientIssueController = {};
 /*
 */
 clientIssueController.create = (req, res) => {
+    var userId = req.headers.authorization;
 
     var issue = new Issue();
     var params = req.body;
-    issue.uId = req.params.id;
+    issue.uId = userId;
     issue.placeEvent = params.placeEvent;
     issue.description = params.description;
     //issue.manager = params.manager;
@@ -37,6 +38,9 @@ clientIssueController.create = (req, res) => {
 /*
 */
 clientIssueController.get = (req, res) => {
+    var userId = req.headers.authorization;
+    console.log(req.headers.authorization);
+
     var issueId = req.params.id;
     Issue.find({_id: issueId})
          .select('-uId -manager -__v')
@@ -48,7 +52,7 @@ clientIssueController.get = (req, res) => {
                 if (!issue) {
                 res.status(404).send({message: 'EL ISSUE NO EXISTE'});
                 } else {
-                    res.status(200).send({issue});
+                    res.status(200).send(issue);
                 }
             }
          });
@@ -69,11 +73,11 @@ clientIssueController.getAll = (req, res) => {
          //.populate('placeEvent', 'name -_id')
          .exec(function(err, issues){
             if (err) {
-              console.log(err);
+              //console.log(err);
               res.status(500).send({message: err});
             } else {
               if (issues) {
-                  console.log(issues);
+                  //console.log(issues);
                   return res.status(200).send({
                       issues
                   });
