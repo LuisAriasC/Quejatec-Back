@@ -16,34 +16,33 @@ async function queryShakespeare() {
   
       // Create a client
       //console.log(process.env.BQ_PROJECT);
-      let a = process.env.BQ_PROJECT;
-      console.log(a);
-      
+      //let a = process.env.BQ_PROJECT;
+      //console.log(a);
 
-      const bigqueryClient = new BigQuery({
-        projectId: process.env.BQ_PROJECT,
-        keyFilename: process.env.BQ_SERVICE_ACCOUNT,
-        location: process.env.LOCATION
-      });
 
-      console.log(a);
+      //const bigqueryClient = new BigQuery({
+      //  projectId: process.env.BQ_PROJECT,
+      //  keyFilename: process.env.BQ_SERVICE_ACCOUNT,
+      //  location: process.env.LOCATION
+      //});
+
+      //console.log(a);
   
       // The SQL query to run
-      const sqlQuery = `SELECT word, word_count
-          FROM \`bigquery-public-data.samples.shakespeare\`
-          WHERE corpus = @corpus
-          AND word_count >= @min_word_count
-          ORDER BY word_count DESC`;
+      //const sqlQuery = `SELECT word, word_count
+      //    FROM \`bigquery-public-data.samples.shakespeare\`
+      //    WHERE corpus = @corpus
+      //    AND word_count >= @min_word_count
+      //    ORDER BY word_count DESC`;
   
-      const options = {
-      query: sqlQuery,
-      // Location must match that of the dataset(s) referenced in the query.
-      location: 'US',
-      params: {corpus: 'romeoandjuliet', min_word_count: 250},
-      };
+      //const options = {
+      //query: sqlQuery,
+      //location: 'US',          // Location must match that of the dataset(s) referenced in the query.
+      //params: {corpus: 'romeoandjuliet', min_word_count: 250},
+      //};
   
       // Run the query
-      const [rows] = await bigqueryClient.query(options);
+      //const [rows] = await bigqueryClient.query(options);
   
       console.log('Rows:');
       //rows.forEach(row => console.log(row));
