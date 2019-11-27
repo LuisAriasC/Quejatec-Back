@@ -4,22 +4,22 @@ module.exports = [
     series: [
           {
       name: '24/11/2019',
-      value: -50
+      value: -5
     },
       {
-        value: 80,
+        value: 8,
         name: '23/11/2019'
       },
       {
-        value: 85,
+        value: 8,
         name: '22/11/2019'
       },
       {
-        value: 90,
+        value: 9,
         name: '21/11/2019'
       },
       {
-        value: 100,
+        value: 10,
         name: '20/11/2019'
       }
     ]
@@ -32,19 +32,19 @@ module.exports = [
       name: '24/11/2019'
     },
       {
-        value: 20,
+        value: 2,
         name: '23/11/2019'
       },
       {
-        value: 30,
+        value: 3,
         name: '22/11/2019'
       },
       {
-        value: 40,
+        value: 4,
         name: '21/11/2019'
       },
       {
-        value: 10,
+        value: 1,
         name: '20/11/2019'
       }
     ]
@@ -62,15 +62,15 @@ module.exports = [
         name: '23/11/2019'
       },
       {
-        value: 20,
+        value: 2,
         name: '22/11/2019'
       },
       {
-        value: 30,
+        value: 3,
         name: '21/11/2019'
       },
       {
-        value: 35,
+        value: 3,
         name: '20/11/2019'
       }
     ]

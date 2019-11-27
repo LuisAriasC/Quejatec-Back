@@ -66,8 +66,8 @@ placeEventController.get = (req, res) => {
 placeEventController.getAll = async (req, res) => {
 
     // var placeEventType = req.params.type;
-    var page = req.query.page ? parseInt(req.query.page, 10) - 1 : 0;
-    var itemsPerPage = req.query.limit ? parseInt(req.query.limit, 10) : 5 ;
+    var page = parseInt(req.query.page, 10) ? parseInt(req.query.page, 10) : 1;
+    var itemsPerPage = parseInt(req.query.limit, 10) ? parseInt(req.query.limit, 10) : 5;
     const filterField = req.query.field;
     const placeEventGroupId = req.params.id;
     let placeEventGroup;
@@ -83,7 +83,7 @@ placeEventController.getAll = async (req, res) => {
       query[filterField] = req.query.filter;
     }
 
-    PlaceEvent.find(query).sort('name').limit(itemsPerPage).skip(page * itemsPerPage).exec(function(err, placeEvents){
+    PlaceEvent.find(query).sort('name').limit(itemsPerPage).skip((page-1) * itemsPerPage).exec(function(err, placeEvents){
       if (err) {
         res.status(500).send({message: err});
       } else {

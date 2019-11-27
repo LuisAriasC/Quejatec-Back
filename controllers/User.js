@@ -27,7 +27,7 @@ userController.create = (req, res) => {
                 if (!userStored) {
                     res.status(404).send({message: 'NO SE HA REGISTRADO AL EMPLEADO'});
                 } else {
-                    res.status(200).send({user: userStored._id});
+                    res.status(200).send({item: userStored});
                 }
             }
         });
@@ -50,7 +50,7 @@ userController.get = (req, res) => {
             if (!user) {
             res.status(404).send({message: 'EL USUARIO NO EXISTE'});
             } else {
-                res.status(200).send({user});
+                res.status(200).send({item: user});
             }
         }
     });
@@ -61,14 +61,14 @@ userController.get = (req, res) => {
 */
 userController.getAll = (req, res) => {
 
-    var page = req.query.page ? parseInt(req.query.page, 10) - 1 : 0;
-    var itemsPerPage = req.query.limit ? parseInt(req.query.limit, 10) : 5 ;
-    const filterField = req.query.field;
+  var page = parseInt(req.query.page, 10) ? parseInt(req.query.page, 10) : 1;
+  var itemsPerPage = parseInt(req.query.limit, 10) ? parseInt(req.query.limit, 10) : 5;
+  const filterField = req.query.field;
     var query = {};
     if (filterField) {
       query[filterField] = req.query.filter;
     }
-    User.find(query).sort('name').limit(itemsPerPage).skip(page * itemsPerPage).exec(function(err, users){
+    User.find(query).sort('name').limit(itemsPerPage).skip((page-1) * itemsPerPage).exec(function(err, users){
       if (err) {
         res.status(500).send({message: err});
       } else {
@@ -115,7 +115,7 @@ userController.put = (req, res) => {
                         if (!user) {
                             res.status(404).send({message: 'EL EMPLEADO NO EXISTE'});
                         } else {
-                            res.status(200).send({user});
+                            res.status(200).send({item: user});
                         }
                     }
                 });
@@ -149,7 +149,7 @@ userController.delete = (req, res) => {
                         if (!user) {
                             res.status(404).send({message: 'EL EMPLEADO NO EXISTE'});
                         } else {
-                            res.status(200).send({message: 'USUARIO ELIMINADO CORRECTAMENTE'});
+                            res.status(200).send({success: true, message: 'USUARIO ELIMINADO CORRECTAMENTE'});
                         }
                     }
                 });
